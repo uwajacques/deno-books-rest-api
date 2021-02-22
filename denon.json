@@ -1,0 +1,17 @@
+{
+    "$schema": "https://deno.land/x/denon/schema.json",
+    "scripts": {
+        "start": {
+            "cmd": "deno run app.ts",
+            "desc": "Start app in watch mode",
+            "allow": ["env", "net", "read", "write"],
+            "env": {
+                "PORT": "8000",
+                "HOST": "127.0.0.1"
+            }
+        }
+    },
+    "watcher": {
+        "exts": ["js", "jsx", "ts", "tsx"]
+    }
+}
