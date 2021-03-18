@@ -1,21 +1,17 @@
 import { Collection } from "https://deno.land/x/filedb/mod.ts";
 import books from "../database/fileDB.ts"
 import { IBook } from "../types/index.ts";
-
 interface IResponse {
   success: boolean;
   message?: string;
   data: Collection<IBook> | IBook | null | undefined;
 }
 
-
 interface IRequestParams {
   isbn: string;
   bookTitle: string;
   author: string;
 }
-
-
 
 export default {
   getBooks: ({ response }: { response: any }) => {
