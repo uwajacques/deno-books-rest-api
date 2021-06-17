@@ -3,9 +3,9 @@ import BooksCtrl from './controllers/bookCtrl.ts';
 
 const router = new Router()
 router.get('/books', BooksCtrl.getBooks)
-      // .get('/books/:isbn', BooksCtrl.getBook)
-      // .post('/books',  BooksCtrl.addBook)
-      // .put('/books/:isbn',  BooksCtrl.updateBook)
-      // .delete('/books/:isbn',  BooksCtrl.deleteBook)
+      .get('/book/:isbn', BooksCtrl.getBook)
+      .post('/book',  BooksCtrl.addBook)
+      .put('/book/:isbn',  BooksCtrl.updateBook)
+      .delete('/book/:isbn',  BooksCtrl.deleteBook)
 
 export default router

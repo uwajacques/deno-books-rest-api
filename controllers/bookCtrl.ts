@@ -1,37 +1,28 @@
 import { Collection } from "https://deno.land/x/filedb/mod.ts";
 import books from "../database/fileDB.ts"
 import { IBook } from "../types/index.ts";
-
-interface IResponse {
+interface IResponseBody {
   success: boolean;
   message?: string;
   data: Collection<IBook> | IBook | null | undefined;
 }
 
-
-interface IRequestParams {
-  isbn: string;
-  bookTitle: string;
-  author: string;
-}
-
-
-
 export default {
   getBooks: ({ response }: { response: any }) => {
-    let responseBody: IResponse = {
+    let responseBody: IResponseBody = {
       success: true,
       data: books,
     };
 
     if (!books) {
+      response.status = 404;
       responseBody = {
         success: false,
         message: `No books found`,
         data: null,
       };
     }
-    response.body = responseBody;
+    return response.body = responseBody;
   },
   getBook: (
     { response, params }: {
@@ -39,9 +30,9 @@ export default {
       params: { isbn: string };
     },
   ) => {
-    const book: IBook | undefined  = books.findOne({id: params.isbn});
+    const book: IBook | undefined  = books.findOne({isbn: params.isbn});
 
-    let responseBody: IResponse = {
+    let responseBody: IResponseBody = {
       success: true,
       data: book
     };
@@ -54,9 +45,36 @@ export default {
         data: null,
       };
     }
-    response.body = responseBody;
+    return response.body = responseBody;
   },
-  addBook: () => {},
-  updateBook: () => {},
-  deleteBook: () => {},
+  addBook: async ({ response, request }: {
+    response: any;
+    request: any;
+  }) => {
+    const result = request.body({ type: "json" });
+    const json = await result.value;
+
+    const book = await books.insertOne(json)
+
+    return response.body = book;
+  },
+  updateBook: async ({ response, request, params }: {
+    response: any;
+    request: any;
+    params: { isbn: string };
+  }) => {
+    const result = request.body({ type: "json" });
+    const json = await result.value;
+
+    books.updateOne({isbn: params.isbn}, json)
+
+    return response.body = {success: true, data: json};
+  },
+  deleteBook: ({ response, params }: {
+    response: any;
+    params: { isbn: string };
+  }) => {
+    books.deleteOne({isbn: params.isbn})
+    return response.body = {success: true, message: "Book deleted"};
+  },
 };

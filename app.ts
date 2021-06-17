@@ -5,5 +5,5 @@ const app = new Application();
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-console.log(`Listening on port ${Deno.env.get('PORT')} ...`)
+console.log(`Listening on:  http://localhost:${Deno.env.get('PORT')}`)
 await app.listen(`${Deno.env.get('HOST')}:${Deno.env.get('PORT')}`)
