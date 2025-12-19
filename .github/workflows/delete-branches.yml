@@ -1,10 +1,7 @@
 name: Cleanup old branches
 on:
-  push:
-    branches:
-      - main
-      - master
-      - develop
+  schedule:
+    - cron: "* * * * *" # every Monday at midnight
 jobs:
   housekeeping:
     name: Cleanup old branches
