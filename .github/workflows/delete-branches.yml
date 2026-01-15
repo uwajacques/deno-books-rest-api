@@ -1,7 +1,7 @@
 name: Cleanup old branches
-# on:
-# schedule:
-# - cron: "0 0 * * 1"  # every Monday at midnight
+on:
+  schedule:
+    - cron: "* * * * *" # every Monday at midnight
 jobs:
   housekeeping:
     name: Cleanup old branches
