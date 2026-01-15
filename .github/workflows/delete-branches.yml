@@ -1,7 +1,7 @@
 name: Cleanup old branches
 on:
   schedule:
-    - cron: "* * * * *" # every Monday at midnight
+    # - cron: "0 0 * * 1"  # every Monday at midnight
 jobs:
   housekeeping:
     name: Cleanup old branches
@@ -13,7 +13,7 @@ jobs:
         uses: beatlabs/delete-old-branches-action@v0.0.11
         with:
           repo_token: ${{ github.token }}
-          date: "6 months ago"
+          # date: "6 months ago"
           dry_run: true
           delete_tags: true
           extra_protected_branch_regex: ^(main)$
